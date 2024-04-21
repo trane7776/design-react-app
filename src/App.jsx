@@ -1,24 +1,28 @@
 // App.jsx
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
-
+import DesignEditor from './components/DesignEditor';
 function App() {
   return (
-    <div>
-      <Router>
+    <div className="">
+      <BrowserRouter>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/design" element={<DesignEditor />}></Route>
+          </Routes>
+        </main>
+
         <Footer />
-      </Router>
+      </BrowserRouter>
     </div>
   );
 }

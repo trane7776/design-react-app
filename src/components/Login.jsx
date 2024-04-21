@@ -2,47 +2,30 @@ import React from 'react';
 
 const Login = () => {
   return (
-    <div className="flex justify-center items-center h-screen ">
-      <div className=" shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h2 className="text-2xl mb-4 text-white">Вход</h2>
-        <form>
-          <div className="mb-4">
-            <label
-              className="block text-gray-300 text-sm font-bold mb-2"
-              htmlFor="username"
-            >
-              Имя пользователя:
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="username"
-              type="text"
-              name="username"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-300 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Пароль:
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="password"
-              type="password"
-              name="password"
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <input
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-              value="Войти"
-            />
-          </div>
-        </form>
-      </div>
+    <div className="bg-gray-800 p-4 w-3/6 mx-auto">
+      <h2 className="text-2xl font-bold mb-4 text-white">Логин</h2>
+      <form className="flex flex-col ">
+        <label className="flex flex-col mb-2 text-white">
+          Введите почту или имя пользователя:
+          <input
+            className="border border-gray-300 rounded-md px-2 py-1 mt-1 w-full"
+            type="username"
+            name="name"
+          />
+        </label>
+        <label className="flex flex-col mb-2 text-white">
+          Пароль:
+          <input
+            className="border border-gray-300 rounded-md px-2 py-1 mt-1 w-full"
+            type="password"
+            name="password"
+          />
+        </label>
+
+        <button className="bg-blue-500 hover:bg-blue-700 cursor-pointer text-white font-bold py-2 px-4 rounded w-1/4 mt-5">
+          Войти
+        </button>
+      </form>
     </div>
   );
 };

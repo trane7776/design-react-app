@@ -16,6 +16,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.editor {
+  @apply relative w-full overflow-hidden h-[500px];
+}
 a {
   font-weight: 500;
   color: #646cff;

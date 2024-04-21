@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -10,9 +11,13 @@ const Home = () => {
         <p className="text-lg text-white-500 mb-8">
           Создай свой уникальный дизайн
         </p>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <Link
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={() => handleClick}
+          to="design"
+        >
           Начать
-        </button>
+        </Link>
       </div>
     </div>
   );
