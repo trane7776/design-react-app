@@ -14,22 +14,22 @@ const FilePicker = ({ file, setFile, readFile }) => {
           }}
         />
         <label htmlFor="file-upload" className="filepicker-label" tabIndex={0}>
-          Upload File
+          Загрузить картинку
         </label>
         <p className="mt-2 text-gray-500 text-xs truncate">
-          {file === '' ? 'No file selected.' : file.name}
+          {file === '' ? 'Файл не выбран.' : file.name}
         </p>
       </div>
       <div className="mt-4 flex flex-wrap gap-3">
         <CustomButton
-          type="outline"
-          title="Logo"
+          type="filled"
+          title="Лого"
           handleClick={() => readFile('logo')}
           customStyles="text-xs"
         />
         <CustomButton
           type="filled"
-          title="Full"
+          title="Текстура"
           handleClick={() => readFile('full')}
           customStyles="text-xs"
         />

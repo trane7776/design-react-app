@@ -110,9 +110,9 @@ const Customizer = () => {
     });
   };
   return (
-    <div className="absolute top-0 left-0 z-10">
-      <div className="flex items-center min-h-screen">
-        <div className="editortabs-container tabs">
+    <div>
+      <div className="flex items-center">
+        <div className="editortabs-container ">
           {EditorTabs.map((tab) => (
             <Tab
               key={tab.name}
@@ -140,12 +140,8 @@ const Customizer = () => {
             }}
           ></Tab>
         ))}
-        <button className="download-btn" onClick={downloadCanvasToImage}>
-          <img
-            src={download}
-            alt="download_image"
-            className="w-3/5 h-3/5 object-contain"
-          />
+        <button className="bg-black" onClick={downloadCanvasToImage}>
+          Скачать
         </button>
       </div>
     </div>
