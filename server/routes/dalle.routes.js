@@ -18,7 +18,7 @@ router.route('/').post(async (req, res) => {
   try {
     const { prompt } = req.body;
     const model =
-      'stability-ai/stable-diffusion:27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478';
+      'lucataco/sdxl:c86579ac5193bf45422f1c8b92742135aa859b1850a8e4c531bff222fc75273d';
     const input = {
       prompt,
       width: 384,
