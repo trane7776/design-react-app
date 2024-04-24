@@ -20,9 +20,20 @@ router.route('/').post(async (req, res) => {
     const model =
       'lucataco/sdxl:c86579ac5193bf45422f1c8b92742135aa859b1850a8e4c531bff222fc75273d';
     const input = {
+      seed: 39287,
       prompt,
       width: 384,
       height: 384,
+      refine: 'expert_ensemble_refiner',
+      scheduler: 'DDIM',
+      lora_scale: 0,
+      num_outputs: 1,
+      guidance_scale: 1,
+      apply_watermark: true,
+      high_noise_frac: 0,
+      negative_prompt: '',
+      prompt_strength: 0,
+      num_inference_steps: 1,
     };
     const output = await replicate.run(model, { input });
     convertImageToBase64(output[0])
