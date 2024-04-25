@@ -6,5 +6,7 @@ const state = proxy({
   isFullTexture: false,
   logoDecal: './Pepsi.png',
   fullDecal: './Pepsi.png',
+  canvas: null,
+  currentTool: null,
 });
 export default state;

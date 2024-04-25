@@ -16,6 +16,11 @@ export const EditorTabs = [
     icon: ai,
     displayName: 'ИИ генератор',
   },
+  {
+    name: 'svgeditor',
+    icon: ai,
+    displayName: 'svg',
+  },
 ];
 
 export const FilterTabs = [

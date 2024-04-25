@@ -1,6 +1,7 @@
 import React from 'react';
 import CanvasModel from '../canvas';
 import Customizer from './Customizer';
+import SvgCustom from './SvgCustom';
 const DesignEditor = () => {
   return (
     <div className="editor">

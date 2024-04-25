@@ -9,7 +9,8 @@ import AIPicker from './AIPicker';
 import ColorPicker from './ColorPicker';
 import FilePicker from './FilePicker';
 import Tab from './Tab';
-import CustomButton from './CustomButton';
+
+import SvgEditor from './SvgCustom';
 const Customizer = () => {
   const snap = useSnapshot(state);
   const [file, setFile] = useState('');
@@ -36,6 +37,8 @@ const Customizer = () => {
             handleSubmit={handleSubmit}
           />
         );
+      case 'svgeditor':
+        return <SvgEditor />;
       default:
         return null;
     }
