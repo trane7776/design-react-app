@@ -1,75 +1,99 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { fabric } from 'fabric';
-import { proxy, useSnapshot } from 'valtio';
+import { useSnapshot } from 'valtio';
 import svgState from '../store';
-import * as THREE from 'three';
+let canvas;
 const SvgEditor = () => {
   const snap = useSnapshot(svgState);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    const canvas = new fabric.Canvas('canvas', {
-      selection: false,
-      backgroundColor: 'white',
-    });
-    svgState.canvas = canvas;
+    if (!svgState.canvas) {
+      canvas = new fabric.Canvas(canvasRef.current, {
+        selection: false,
+        backgroundColor: 'white',
+      });
+      svgState.canvas = canvas;
 
-    canvas.on('mouse:down', (options) => {
-      if (canvas.getActiveObject()) return;
+      const handleMouseDown = (options) => {
+        if (canvas.getActiveObject()) return;
 
-      let element;
-      if (svgState.currentTool === 'rect') {
-        element = new fabric.Rect({
-          left: options.pointer.x,
-          top: options.pointer.y,
-          fill: 'red',
-          width: 1,
-          height: 1,
-        });
-      } else if (svgState.currentTool === 'line') {
-        element = new fabric.Line(
-          [
-            options.pointer.x,
-            options.pointer.y,
-            options.pointer.x,
-            options.pointer.y,
-          ],
-          {
-            stroke: 'black',
-          }
-        );
-      } else if (svgState.currentTool === 'text') {
-        element = new fabric.IText('Hello', {
-          left: options.pointer.x,
-          top: options.pointer.y,
-        });
+        let element;
+        if (svgState.currentTool === 'rect') {
+          element = new fabric.Rect({
+            left: options.pointer.x,
+            top: options.pointer.y,
+            fill: 'red',
+            width: 1,
+            height: 1,
+          });
+        } else if (svgState.currentTool === 'line') {
+          element = new fabric.Line(
+            [
+              options.pointer.x,
+              options.pointer.y,
+              options.pointer.x,
+              options.pointer.y,
+            ],
+            {
+              stroke: 'black',
+            }
+          );
+        } else if (svgState.currentTool === 'text') {
+          element = new fabric.IText('Hello', {
+            left: options.pointer.x,
+            top: options.pointer.y,
+          });
+        }
+
+        if (element) {
+          canvas.add(element);
+          canvas.setActiveObject(element);
+        }
+      };
+
+      canvas.on('mouse:down', handleMouseDown);
+
+      canvas.on('mouse:move', (options) => {
+        const activeObject = canvas.getActiveObject();
+        if (!activeObject) return;
+
+        if (
+          svgState.currentTool === 'rect' ||
+          svgState.currentTool === 'text'
+        ) {
+          const width = Math.abs(options.pointer.x - activeObject.left);
+          const height = Math.abs(options.pointer.y - activeObject.top);
+          activeObject.set({ width, height });
+        } else if (svgState.currentTool === 'line') {
+          activeObject.set({
+            x2: options.pointer.x,
+            y2: options.pointer.y,
+          });
+        }
+
+        canvas.renderAll();
+      });
+
+      canvas.on('mouse:up', () => {
+        if (canvas.getActiveObject()) {
+          canvas.discardActiveObject();
+        }
+      });
+    }
+
+    return () => {
+      if (canvas) {
+        // Удаление обработчиков событий перед вызовом dispose
+        canvas.off('mouse:down');
+        canvas.off('mouse:move');
+        canvas.off('mouse:up');
+
+        // Очистка ресурсов
+        canvas.dispose();
+        svgState.canvas = null;
       }
-      if (element) {
-        canvas.add(element);
-        canvas.setActiveObject(element);
-      }
-    });
-
-    canvas.on('mouse:move', (options) => {
-      if (!canvas.getActiveObject()) return;
-      if (svgState.currentTool === 'rect' || svgState.currentTool === 'text') {
-        const width = Math.abs(
-          options.pointer.x - canvas.getActiveObject().left
-        );
-        const height = Math.abs(
-          options.pointer.y - canvas.getActiveObject().top
-        );
-        canvas.getActiveObject().set({ width, height });
-      } else if (svgState.currentTool === 'line') {
-        canvas
-          .getActiveObject()
-          .set({ x2: options.pointer.x, y2: options.pointer.y });
-      }
-      canvas.renderAll();
-    });
-
-    canvas.on('mouse:up', () => {
-      canvas.discardActiveObject().renderAll();
-    });
+    };
   }, []);
 
   const handleToolClick = (tool) => {
@@ -77,15 +101,27 @@ const SvgEditor = () => {
   };
 
   const handleClearClick = () => {
-    svgState.canvas.clear();
+    if (svgState.canvas) {
+      svgState.canvas.clear();
+    }
   };
+
   const handleSaveClick = () => {
-    const svgContent = svgState.canvas.toSVG();
-    console.log(svgContent);
-    svgState.logoDecal = `data:image/svg+xml;base64,${btoa(svgContent)}`;
-    // Сохраните SVG в состоянии
+    if (canvas) {
+      const svgContent = canvas.toSVG();
+
+      // Проверка, что SVG получен
+      console.log('SVG Content:', svgContent);
+
+      // Кодирование в Base64
+      const base64EncodedSVG = `data:image/svg+xml;base64,${btoa(svgContent)}`;
+      console.log(canvasRef);
+      // Сохранение в нужное состояние или переменную
+      console.log('Base64 SVG:', base64EncodedSVG);
+      svgState.logoDecal = base64EncodedSVG;
+    }
   };
-  console.log(snap);
+
   return (
     <div className="absolute left-full ml-3 glassmorphism p-3 w-[200px] h-[220px] rounded-md flex flex-col gap-4">
       <button onClick={() => handleToolClick('rect')}>Add Rectangle</button>
@@ -93,7 +129,7 @@ const SvgEditor = () => {
       <button onClick={() => handleToolClick('text')}>Add Text</button>
       <button onClick={handleClearClick}>Clear Canvas</button>
       <button onClick={handleSaveClick}>Save as SVG</button>
-      <canvas id="canvas" width={200} height={200} />
+      <canvas ref={canvasRef} id="canvas" width={200} height={200} />
     </div>
   );
 };
