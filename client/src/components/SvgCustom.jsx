@@ -101,12 +101,13 @@ const SvgEditor = () => {
   };
 
   const handleClearClick = () => {
-    if (svgState.canvas) {
-      svgState.canvas.clear();
+    if (canvas) {
+      canvas.clear();
+      canvas.backgroundColor = 'white';
     }
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClickLogo = () => {
     if (canvas) {
       const svgContent = canvas.toSVG();
 
@@ -121,15 +122,35 @@ const SvgEditor = () => {
       svgState.logoDecal = base64EncodedSVG;
     }
   };
+  const handleSaveClickTexture = () => {
+    if (canvas) {
+      const svgContent = canvas.toSVG();
+
+      // Проверка, что SVG получен
+      console.log('SVG Content:', svgContent);
+
+      // Кодирование в Base64
+      const base64EncodedSVG = `data:image/svg+xml;base64,${btoa(svgContent)}`;
+      console.log(canvasRef);
+      // Сохранение в нужное состояние или переменную
+      console.log('Base64 SVG:', base64EncodedSVG);
+      svgState.fullDecal = base64EncodedSVG;
+    }
+  };
 
   return (
-    <div className="absolute left-full ml-3 glassmorphism p-3 w-[200px] h-[220px] rounded-md flex flex-col gap-4">
-      <button onClick={() => handleToolClick('rect')}>Add Rectangle</button>
-      <button onClick={() => handleToolClick('line')}>Add Line</button>
-      <button onClick={() => handleToolClick('text')}>Add Text</button>
-      <button onClick={handleClearClick}>Clear Canvas</button>
-      <button onClick={handleSaveClick}>Save as SVG</button>
-      <canvas ref={canvasRef} id="canvas" width={200} height={200} />
+    <div className="absolute left-full ml-3  p-3 w-[200px] h-[220px] rounded-md flex flex-col gap-4">
+      <button onClick={() => handleToolClick('rect')}>Прямоугольник</button>
+      <button onClick={() => handleToolClick('line')}>Линия</button>
+      <button onClick={() => handleToolClick('text')}>Текст</button>
+      <button onClick={handleClearClick}>Очистить канву</button>
+      <button onClick={handleSaveClickLogo}>Приклеить к футболке (svg)</button>
+      <button onClick={handleSaveClickTexture}>
+        Растянуть по футболке (svg)
+      </button>
+      <div className="absolute left-full ml-3 ">
+        <canvas ref={canvasRef} id="canvas" width={200} height={200} />
+      </div>
     </div>
   );
 };
