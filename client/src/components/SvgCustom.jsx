@@ -6,15 +6,21 @@ let canvas;
 const SvgEditor = () => {
   const snap = useSnapshot(svgState);
   const canvasRef = useRef(null);
-
+  const handleKeyDown = (event) => {
+    const activeObject = canvas.getActiveObject();
+    if (event.key === 'Delete' && activeObject) {
+      canvas.remove(activeObject);
+    }
+  };
   useEffect(() => {
     if (!svgState.canvas) {
       canvas = new fabric.Canvas(canvasRef.current, {
-        selection: false,
+        selection: true,
         backgroundColor: 'white',
       });
       svgState.canvas = canvas;
 
+      document.addEventListener('keydown', handleKeyDown);
       const handleMouseDown = (options) => {
         if (canvas.getActiveObject()) return;
 
@@ -62,9 +68,9 @@ const SvgEditor = () => {
           svgState.currentTool === 'rect' ||
           svgState.currentTool === 'text'
         ) {
-          const width = Math.abs(options.pointer.x - activeObject.left);
-          const height = Math.abs(options.pointer.y - activeObject.top);
-          activeObject.set({ width, height });
+          const newWidth = options.pointer.x - activeObject.left;
+          const newHeight = options.pointer.y - activeObject.top;
+          activeObject.set({ width: newWidth, height: newHeight });
         } else if (svgState.currentTool === 'line') {
           activeObject.set({
             x2: options.pointer.x,
@@ -72,12 +78,28 @@ const SvgEditor = () => {
           });
         }
 
-        canvas.renderAll();
+        canvas.requestRenderAll();
       });
 
       canvas.on('mouse:up', () => {
         if (canvas.getActiveObject()) {
           canvas.discardActiveObject();
+        }
+      });
+      canvas.on('object:added', (e) => {
+        const obj = e.target;
+        if (obj) {
+          obj.setControlsVisibility({
+            mt: true, // Верхний средний
+            mb: true, // Нижний средний
+            ml: true, // Левый средний
+            mr: true, // Правый средний
+            bl: true, // Нижний левый
+            br: true, // Нижний правый
+            tl: true, // Верхний левый
+            tr: true, // Верхний правый
+            mtr: true, // Поворотный угол
+          });
         }
       });
     }
@@ -92,6 +114,7 @@ const SvgEditor = () => {
         // Очистка ресурсов
         canvas.dispose();
         svgState.canvas = null;
+        document.removeEventListener('keydown', handleKeyDown);
       }
     };
   }, []);
