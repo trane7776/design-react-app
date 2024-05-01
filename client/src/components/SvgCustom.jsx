@@ -1,40 +1,50 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { fabric } from 'fabric';
 import { useSnapshot } from 'valtio';
 import svgState from '../store';
+
 let canvas;
+let currentTool = '';
 const SvgEditor = () => {
   const snap = useSnapshot(svgState);
   const canvasRef = useRef(null);
+
   const handleKeyDown = (event) => {
     const activeObject = canvas.getActiveObject();
     if (event.key === 'Delete' && activeObject) {
       canvas.remove(activeObject);
     }
   };
+
   useEffect(() => {
     if (!svgState.canvas) {
       canvas = new fabric.Canvas(canvasRef.current, {
-        selection: true,
+        selection: true, // Позволяет выделять и перемещать объекты
         backgroundColor: 'white',
       });
       svgState.canvas = canvas;
 
       document.addEventListener('keydown', handleKeyDown);
-      const handleMouseDown = (options) => {
-        if (canvas.getActiveObject()) return;
 
-        let element;
-        if (svgState.currentTool === 'rect') {
-          element = new fabric.Rect({
+      const handleMouseDown = (options) => {
+        const activeObject = canvas.getActiveObject();
+
+        if (activeObject && !activeObject.isMoving()) {
+          return;
+        }
+
+        if (currentTool === 'rect') {
+          const rect = new fabric.Rect({
             left: options.pointer.x,
             top: options.pointer.y,
             fill: 'red',
             width: 1,
             height: 1,
           });
-        } else if (svgState.currentTool === 'line') {
-          element = new fabric.Line(
+          canvas.add(rect);
+          canvas.setActiveObject(rect);
+        } else if (currentTool === 'line') {
+          const line = new fabric.Line(
             [
               options.pointer.x,
               options.pointer.y,
@@ -45,16 +55,15 @@ const SvgEditor = () => {
               stroke: 'black',
             }
           );
-        } else if (svgState.currentTool === 'text') {
-          element = new fabric.IText('Hello', {
+          canvas.add(line);
+          canvas.setActiveObject(line);
+        } else if (currentTool === 'text') {
+          const text = new fabric.IText('Hello', {
             left: options.pointer.x,
             top: options.pointer.y,
           });
-        }
-
-        if (element) {
-          canvas.add(element);
-          canvas.setActiveObject(element);
+          canvas.add(text);
+          canvas.setActiveObject(text);
         }
       };
 
@@ -64,14 +73,11 @@ const SvgEditor = () => {
         const activeObject = canvas.getActiveObject();
         if (!activeObject) return;
 
-        if (
-          svgState.currentTool === 'rect' ||
-          svgState.currentTool === 'text'
-        ) {
+        if (currentTool === 'rect') {
           const newWidth = options.pointer.x - activeObject.left;
           const newHeight = options.pointer.y - activeObject.top;
           activeObject.set({ width: newWidth, height: newHeight });
-        } else if (svgState.currentTool === 'line') {
+        } else if (currentTool === 'line') {
           activeObject.set({
             x2: options.pointer.x,
             y2: options.pointer.y,
@@ -82,10 +88,13 @@ const SvgEditor = () => {
       });
 
       canvas.on('mouse:up', () => {
-        if (canvas.getActiveObject()) {
-          canvas.discardActiveObject();
+        const activeObject = canvas.getActiveObject();
+        if (activeObject && currentTool === 'rect') {
+          activeObject.setCoords(); // Обновляет координаты после изменения размера
         }
+        canvas.discardActiveObject();
       });
+
       canvas.on('object:added', (e) => {
         const obj = e.target;
         if (obj) {
@@ -106,12 +115,9 @@ const SvgEditor = () => {
 
     return () => {
       if (canvas) {
-        // Удаление обработчиков событий перед вызовом dispose
         canvas.off('mouse:down');
         canvas.off('mouse:move');
         canvas.off('mouse:up');
-
-        // Очистка ресурсов
         canvas.dispose();
         svgState.canvas = null;
         document.removeEventListener('keydown', handleKeyDown);
@@ -120,7 +126,7 @@ const SvgEditor = () => {
   }, []);
 
   const handleToolClick = (tool) => {
-    svgState.currentTool = tool;
+    currentTool = tool;
   };
 
   const handleClearClick = () => {
@@ -133,30 +139,15 @@ const SvgEditor = () => {
   const handleSaveClickLogo = () => {
     if (canvas) {
       const svgContent = canvas.toSVG();
-
-      // Проверка, что SVG получен
-      console.log('SVG Content:', svgContent);
-
-      // Кодирование в Base64
       const base64EncodedSVG = `data:image/svg+xml;base64,${btoa(svgContent)}`;
-      console.log(canvasRef);
-      // Сохранение в нужное состояние или переменную
-      console.log('Base64 SVG:', base64EncodedSVG);
       svgState.logoDecal = base64EncodedSVG;
     }
   };
+
   const handleSaveClickTexture = () => {
     if (canvas) {
       const svgContent = canvas.toSVG();
-
-      // Проверка, что SVG получен
-      console.log('SVG Content:', svgContent);
-
-      // Кодирование в Base64
       const base64EncodedSVG = `data:image/svg+xml;base64,${btoa(svgContent)}`;
-      console.log(canvasRef);
-      // Сохранение в нужное состояние или переменную
-      console.log('Base64 SVG:', base64EncodedSVG);
       svgState.fullDecal = base64EncodedSVG;
     }
   };
