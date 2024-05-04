@@ -38,7 +38,7 @@ export const downloadCanvasToSVG = () => {
   const canvas = document.querySelector('canvas');
   const dataURL = canvas.toDataURL();
 
-  potrace.trace(dataURL, (err, svg) => {
+  potrace.posterize(dataURL, (err, svg) => {
     if (err) throw err;
     console.log(svg);
     // Сохранение SVG в файл
