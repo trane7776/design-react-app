@@ -3,7 +3,11 @@ import { useSnapshot } from 'valtio';
 import config from '../config/config';
 import state from '../store';
 import { download } from '../assets';
-import { downloadCanvasToImage, reader } from '../config/helpers';
+import {
+  downloadCanvasToImage,
+  reader,
+  downloadCanvasToSVG,
+} from '../config/helpers';
 import { EditorTabs, FilterTabs, DecalTypes } from '../config/constants';
 import AIPicker from './AIPicker';
 import ColorPicker from './ColorPicker';
@@ -145,6 +149,9 @@ const Customizer = () => {
         ))}
         <button className="bg-black" onClick={downloadCanvasToImage}>
           Скачать
+        </button>
+        <button className="bg-black" onClick={downloadCanvasToSVG}>
+          Скачать в SVG
         </button>
       </div>
     </div>

@@ -1,10 +1,12 @@
+import potrace from 'potrace';
+
 export const downloadCanvasToImage = () => {
-  const canvas = document.querySelector("canvas");
+  const canvas = document.querySelector('canvas');
   const dataURL = canvas.toDataURL();
-  const link = document.createElement("a");
+  const link = document.createElement('a');
 
   link.href = dataURL;
-  link.download = "canvas.png";
+  link.download = 'canvas.png';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -19,7 +21,7 @@ export const reader = (file) =>
 
 export const getContrastingColor = (color) => {
   // Remove the '#' character if it exists
-  const hex = color.replace("#", "");
+  const hex = color.replace('#', '');
 
   // Convert the hex string to RGB values
   const r = parseInt(hex.substring(0, 2), 16);
@@ -30,5 +32,25 @@ export const getContrastingColor = (color) => {
   const brightness = (r * 299 + g * 587 + b * 114) / 1000;
 
   // Return black or white depending on the brightness
-  return brightness > 128 ? "black" : "white";
+  return brightness > 128 ? 'black' : 'white';
+};
+export const downloadCanvasToSVG = () => {
+  const canvas = document.querySelector('canvas');
+  const dataURL = canvas.toDataURL();
+
+  potrace.trace(dataURL, (err, svg) => {
+    if (err) throw err;
+    console.log(svg);
+    // Сохранение SVG в файл
+    const blob = new Blob([svg], { type: 'image/svg+xml' });
+
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.download = 'image.svg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  });
 };
