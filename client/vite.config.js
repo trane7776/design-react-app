@@ -4,5 +4,10 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: { exclude: ['@neplex/vectorizer'] },
+  test: {
+    environment: 'jsdom',
+
+    testMatch: ['./tests/**/*.test.jsx'],
+    globals: true,
+  },
 });

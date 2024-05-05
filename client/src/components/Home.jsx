@@ -1,6 +1,3 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
 const Home = () => {
   return (
     <div className="flex justify-center items-center">
@@ -11,12 +8,12 @@ const Home = () => {
         <p className="text-lg text-white-500 mb-8">
           Создай свой уникальный дизайн
         </p>
-        <Link
+        <a
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          to="design"
+          href="/design"
         >
           Начать
-        </Link>
+        </a>
       </div>
     </div>
   );
