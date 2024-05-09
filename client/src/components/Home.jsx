@@ -1,4 +1,11 @@
 const Home = () => {
+  const designs = [
+    { id: 1, name: 'Design 1', imageUrl: 'https://example.com/design1.jpg' },
+    { id: 2, name: 'Design 2', imageUrl: 'https://example.com/design2.jpg' },
+    { id: 3, name: 'Design 3', imageUrl: 'https://example.com/design3.jpg' },
+    // Add more designs as needed
+  ];
+
   return (
     <div className="flex justify-center items-center">
       <div className="text-center">
@@ -14,6 +21,12 @@ const Home = () => {
         >
           Начать
         </a>
+        {designs.map((design) => (
+          <div key={design.id}>
+            <h2>{design.name}</h2>
+            <img src={design.imageUrl} alt={design.name} />
+          </div>
+        ))}
       </div>
     </div>
   );
