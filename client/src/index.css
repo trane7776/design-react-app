@@ -27,6 +27,9 @@ a {
 a:hover {
   color: #535bf2;
 }
+.heading3 {
+  @apply font-bold sm:text-[32px] sm:leading-[33.6px] text-[28px] leading-[40px] tracking-[-0.25%];
+}
 
 body {
   margin: 0;
@@ -50,7 +53,21 @@ body {
 .download-btn {
   @apply w-14 h-14 flex justify-center items-center rounded-full glassmorphism cursor-pointer outline-none;
 }
+.flex-between {
+  @apply flex justify-between items-center;
+}
 
+.flex-center {
+  @apply flex justify-center items-center;
+}
+
+.flex-start {
+  @apply flex justify-start items-start;
+}
+
+.flex-end {
+  @apply flex justify-end;
+}
 .editortabs-container {
   @apply absolute left-0 top-0 glassmorphism w-44 border-[2px] rounded-lg flex flex-col justify-center items-center ml-1 py-4 gap-4;
 }

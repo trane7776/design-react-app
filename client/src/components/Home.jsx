@@ -1,11 +1,5 @@
+import DesignCard from './DesignCard';
 const Home = () => {
-  const designs = [
-    { id: 1, name: 'Design 1', imageUrl: 'https://example.com/design1.jpg' },
-    { id: 2, name: 'Design 2', imageUrl: 'https://example.com/design2.jpg' },
-    { id: 3, name: 'Design 3', imageUrl: 'https://example.com/design3.jpg' },
-    // Add more designs as needed
-  ];
-
   return (
     <div className="flex justify-center items-center">
       <div className="text-center">
@@ -21,12 +15,49 @@ const Home = () => {
         >
           Начать
         </a>
-        {designs.map((design) => (
-          <div key={design.id}>
-            <h2>{design.name}</h2>
-            <img src={design.imageUrl} alt={design.name} />
+        <section className="flex-center mt-6 w-full flex-col sm:mt-20">
+          <h1 className="heading3 self-start text-white-800">
+            Дизайны пользователей
+          </h1>
+          <div className="mt-12 flex w-full flex-wrap justify-center gap-16 sm:justify-start">
+            <DesignCard
+              title="Пепси дизайн"
+              image="./Pepsi.png"
+              user="admin"
+              id="1"
+            />
+            <DesignCard
+              title="Пепси дизайн"
+              image="./Pepsi.png"
+              user="admin"
+              id="1"
+            />
+            <DesignCard
+              title="Пепси дизайн"
+              image="./Pepsi.png"
+              user="admin"
+              id="1"
+            />
+            <DesignCard
+              title="Пепси дизайн"
+              image="./Pepsi.png"
+              user="admin"
+              id="1"
+            />
+            <DesignCard
+              title="Пепси дизайн"
+              image="./Pepsi.png"
+              user="admin"
+              id="1"
+            />
+            <DesignCard
+              title="Пепси дизайн"
+              image="./Pepsi.png"
+              user="admin"
+              id="1"
+            />
           </div>
-        ))}
+        </section>
       </div>
     </div>
   );
