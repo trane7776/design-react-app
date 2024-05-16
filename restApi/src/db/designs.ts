@@ -8,7 +8,6 @@ interface IShirtDesign extends Document {
   image: string;
   description: string;
   prompt: string;
-  comments: string[];
 }
 
 // Define the Mongoose schema for the shirt design
@@ -16,9 +15,8 @@ const ShirtDesignSchema: Schema = new Schema({
   user: { type: String, required: true },
   name: { type: String, required: true },
   image: { type: String, required: true },
-  description: { type: String, required: true },
-  prompt: { type: String, required: true },
-  comments: { type: [String], default: [] },
+  description: { type: String },
+  prompt: { type: String },
 });
 
 // Create and export the Mongoose model for the shirt design
