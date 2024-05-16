@@ -46,6 +46,10 @@ body {
   @apply flex-1 xl:justify-center justify-start flex flex-col gap-10;
 }
 
+body {
+  @apply pb-48;
+}
+
 .head-text {
   @apply xl:text-[10rem] text-[6rem] xl:leading-[11rem] leading-[7rem] font-black text-black;
 }
