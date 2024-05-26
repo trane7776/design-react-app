@@ -18,7 +18,7 @@ const Home = () => {
         <h1 className="text-3xl font-bold text-white mb-8">
           Дизайны пользователей
         </h1>
-        <div className="mt-12 flex w-full flex-wrap justify-center gap-8 sm:justify-start">
+        <div className="mt-12 ml-20 flex w-full flex-wrap justify-center gap-8 sm:justify-start">
           <DesignCard
             title="Пепси дизайн"
             image="./Pepsi.png"

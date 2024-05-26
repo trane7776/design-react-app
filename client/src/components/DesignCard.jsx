@@ -11,7 +11,7 @@ const DesignCard = ({ id, title, image, user }) => {
       <CardHeader className="flex flex-col items-center p-4">
         <img
           src={image}
-          className="w-full h-48 object-cover rounded-md"
+          className="w-full h-48 object-contain rounded-md"
           alt={title}
         />
         <CardTitle className="text-white mt-4">{title}</CardTitle>
