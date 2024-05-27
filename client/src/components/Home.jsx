@@ -6,7 +6,9 @@ const Home = () => {
   useEffect(() => {
     const fetchDesigns = async () => {
       try {
-        const response = await fetch('http://localhost:8080/design');
+        const response = await fetch(
+          'https://design-react-app-production.up.railway.app/design'
+        );
         const data = await response.json();
 
         setDesigns(data);

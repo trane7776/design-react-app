@@ -12,7 +12,7 @@ const Account = ({ user, setUser }) => {
   const fetchUserDesigns = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/user-designs?user=${user.username}`
+        `https://design-react-app-production.up.railway.app/user-designs?user=${user.username}`
       );
       const data = await response.json();
       setDesigns(data);
@@ -23,9 +23,12 @@ const Account = ({ user, setUser }) => {
 
   const deleteDesign = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/design/${id}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `https://design-react-app-production.up.railway.app/design/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
 
       if (response.ok) {
         setDesigns(designs.filter((design) => design._id !== id));

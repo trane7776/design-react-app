@@ -132,13 +132,16 @@ const Customizer = ({ user }) => {
       prompt1,
     };
     try {
-      const response = await fetch('http://localhost:8080/design', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(designData),
-      });
+      const response = await fetch(
+        'https://design-react-app-production.up.railway.app/design',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(designData),
+        }
+      );
       if (response.ok) {
         alert('Design published successfully!');
       } else {
