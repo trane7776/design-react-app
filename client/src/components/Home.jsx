@@ -28,7 +28,7 @@ const Home = () => {
     design.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
   return (
-    <div className="flex flex-col items-center bg-gray-900 min-h-screen">
+    <div className="flex flex-col items-center bg-gray-900 min-h-screen pb-20">
       <div className="text-center mt-16">
         <h1 className="text-4xl font-bold text-white mb-4">Дизайн футболок</h1>
         <p className="text-lg text-gray-400 mb-8">

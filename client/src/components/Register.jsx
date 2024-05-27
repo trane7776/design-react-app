@@ -1,38 +1,42 @@
 import React, { useState } from 'react';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Register = ({ setUser }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(
-        'https://design-react-app-production.up.railway.app/auth/register',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, password, username }),
+    if (confirmPassword === password) {
+      try {
+        const response = await fetch(
+          'https://design-react-app-production.up.railway.app/auth/register',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password, username }),
+          }
+        );
+        if (!response.ok) {
+          throw new Error('Failed to register');
+        } else {
+          alert('Registered.');
+          const user = await response.json();
+          setUser(user);
+          navigate('/');
         }
-      );
-      if (!response.ok) {
-        throw new Error('Failed to register');
-      } else {
-        alert('Registered.');
-        const user = await response.json();
-        setUser(user);
-        redirect('/');
-      }
 
-      // Handle successful registration
-    } catch (error) {
-      console.error('Registration error:', error);
-      alert('Failed to register');
+        // Handle successful registration
+      } catch (error) {
+        console.error('Registration error:', error);
+        alert('Failed to register');
+      }
+    } else {
+      alert('Введенные пароли не совпадают.');
     }
   };
 

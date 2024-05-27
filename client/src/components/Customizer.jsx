@@ -153,8 +153,8 @@ const Customizer = ({ user }) => {
   };
 
   return (
-    <div>
-      <div className="flex items-center">
+    <div className="">
+      <div className="pb-40 flex items-center">
         <div className="editortabs-container ">
           {EditorTabs.map((tab) => (
             <Tab

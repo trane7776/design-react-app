@@ -2,7 +2,7 @@ import React from 'react';
 
 const Navbar = ({ user }) => {
   return (
-    <div className="mb-28">
+    <div className="mb-20">
       <nav className="bg-gray-800 py-4 fixed top-0 left-0 right-0 z-10 flex justify-between items-center px-4 shadow-lg">
         <a href="/" className="text-white text-3xl font-bold">
           Майки онлайн
@@ -10,7 +10,7 @@ const Navbar = ({ user }) => {
         <div className="flex gap-4">
           {user ? (
             <a href="/account" className="text-white font-medium">
-              ЛК
+              Личный кабинет
             </a>
           ) : (
             <>
