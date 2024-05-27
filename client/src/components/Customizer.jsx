@@ -15,10 +15,10 @@ import FilePicker from './FilePicker';
 import Tab from './Tab';
 
 import SvgEditor from './SvgCustom';
-const Customizer = () => {
+const Customizer = ({ user }) => {
   const snap = useSnapshot(state);
   const [file, setFile] = useState('');
-  const [prompt, setPrompt] = useState('');
+  const [prompt1, setPrompt] = useState('');
   const [generatingImg, setGeneratingImg] = useState(false);
   const [activeEditorTab, setActiveEditorTab] = useState('');
   const [activeFilterTab, setActiveFilterTab] = useState({
@@ -35,7 +35,7 @@ const Customizer = () => {
       case 'aipicker':
         return (
           <AIPicker
-            prompt={prompt}
+            prompt={prompt1}
             setPrompt={setPrompt}
             generatingImg={generatingImg}
             handleSubmit={handleSubmit}
@@ -48,7 +48,7 @@ const Customizer = () => {
     }
   };
   const handleSubmit = async (type) => {
-    if (!prompt) return alert('Please enter a prompt');
+    if (!prompt1) return alert('Please enter a prompt');
     try {
       setGeneratingImg(true);
       const response = await fetch(
@@ -56,7 +56,7 @@ const Customizer = () => {
         {
           method: 'POST',
           body: JSON.stringify({
-            prompt,
+            prompt1,
           }),
           headers: {
             'Content-Type': 'application/json',
@@ -116,6 +116,39 @@ const Customizer = () => {
       setActiveEditorTab('');
     });
   };
+
+  const handlePublish = async () => {
+    const canvas = document.querySelector('canvas'); // assuming your canvas has an id 'canvas'
+
+    const image = canvas.toDataURL();
+    console.log(image);
+    const name = prompt('Введите название дизайна:');
+    const description = prompt('Введите описание дизайна:');
+    const designData = {
+      user: user.username,
+      name,
+      image,
+      description,
+      prompt1,
+    };
+    try {
+      const response = await fetch('http://localhost:8080/design', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(designData),
+      });
+      if (response.ok) {
+        alert('Design published successfully!');
+      } else {
+        alert('Failed to publish design.');
+      }
+    } catch (error) {
+      console.error('Error publishing design:', error);
+    }
+  };
+
   return (
     <div>
       <div className="flex items-center">
@@ -153,6 +186,13 @@ const Customizer = () => {
         <button className="bg-black" onClick={downloadCanvasToSVG}>
           Скачать в SVG
         </button>
+        {user ? (
+          <button className="bg-black" onClick={handlePublish}>
+            Опубликовать на сайте
+          </button>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );

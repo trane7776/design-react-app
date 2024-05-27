@@ -1,14 +1,14 @@
 // Login.jsx
 import React, { useState } from 'react';
-
-const Login = () => {
+import { useNavigate } from 'react-router-dom';
+const Login = ({ setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://your-api-url/auth/login', {
+      const response = await fetch('http://localhost:8080/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,6 +18,11 @@ const Login = () => {
 
       if (!response.ok) {
         throw new Error('Failed to login');
+      } else {
+        const user = await response.json();
+        setUser(user);
+        alert('Success');
+        navigate('/');
       }
 
       // Handle successful login

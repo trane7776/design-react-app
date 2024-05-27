@@ -1,6 +1,7 @@
 import express from 'express';
 import ShirtDesign from '../db/designs';
-import { isAuthenticated } from 'middlewares';
+import { isAuthenticated } from '../middlewares';
+import { getUserById } from '../db/users';
 export default (router: express.Router) => {
   // GET all shirt designs
   router.get('/design', async (req: express.Request, res: express.Response) => {
@@ -27,35 +28,38 @@ export default (router: express.Router) => {
       }
     }
   );
+  // GET all shirt designs for a specific user
+  router.get('/user-designs', async (req, res) => {
+    try {
+      const { user } = req.query;
+      const designs = await ShirtDesign.find({ user });
+      res.json(designs);
+    } catch (error) {
+      res.status(500).json({ message: 'Server Error' });
+    }
+  });
 
+  // DELETE a shirt design by ID
+  router.delete('/design/:id', async (req, res) => {
+    try {
+      const deletedDesign = await ShirtDesign.findByIdAndDelete(req.params.id);
+      if (!deletedDesign) {
+        return res.status(404).json({ message: 'Shirt design not found' });
+      }
+      res.json({ message: 'Shirt design deleted' });
+    } catch (error) {
+      res.status(500).json({ message: 'Server Error' });
+    }
+  });
   // POST a new shirt design
   router.post(
     '/design',
-    isAuthenticated,
     async (req: express.Request, res: express.Response) => {
       try {
         const newDesign = new ShirtDesign(req.body);
+
         const savedDesign = await newDesign.save();
         res.status(201).json(savedDesign);
-      } catch (error) {
-        res.status(500).json({ message: 'Server Error' });
-      }
-    }
-  );
-
-  // DELETE a shirt design by ID
-  router.delete(
-    '/design/:id',
-    isAuthenticated,
-    async (req: express.Request, res: express.Response) => {
-      try {
-        const deletedDesign = await ShirtDesign.findByIdAndDelete(
-          req.params.id
-        );
-        if (!deletedDesign) {
-          return res.status(404).json({ message: 'Shirt design not found' });
-        }
-        res.json({ message: 'Shirt design deleted' });
       } catch (error) {
         res.status(500).json({ message: 'Server Error' });
       }

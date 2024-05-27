@@ -2,11 +2,11 @@ import React from 'react';
 import CanvasModel from '../canvas';
 import Customizer from './Customizer';
 import SvgCustom from './SvgCustom';
-const DesignEditor = () => {
+const DesignEditor = ({ user }) => {
   return (
     <div className="editor">
       <CanvasModel />
-      <Customizer />
+      <Customizer user={user} />
     </div>
   );
 };

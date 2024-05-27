@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
+import { redirect } from 'react-router-dom';
 
-const Register = () => {
+const Register = ({ setUser }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await fetch('http://your-api-url/auth/register', {
+      const response = await fetch('http://localhost:8080/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password, username }),
       });
-
       if (!response.ok) {
         throw new Error('Failed to register');
+      } else {
+        alert('Registered.');
+        const user = await response.json();
+        setUser(user);
+        redirect('/');
       }
-      alert('Successfully registered');
+
       // Handle successful registration
     } catch (error) {
       console.error('Registration error:', error);
