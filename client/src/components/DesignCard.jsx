@@ -7,6 +7,9 @@ import {
 } from '../../components/ui/card';
 import potrace from 'potrace';
 const DesignCard = ({ id, title, image, user }) => {
+  const handleCardClick = () => {
+    window.location.href = `/design/${id}`;
+  };
   const handleClick = () => {
     potrace.posterize(image, (err, svg) => {
       if (err) throw err;
@@ -25,7 +28,10 @@ const DesignCard = ({ id, title, image, user }) => {
     });
   };
   return (
-    <Card className="w-full max-w-xs border border-gray-700 rounded-md shadow-lg bg-gray-800">
+    <Card
+      onClick={handleCardClick}
+      className="design-card w-full max-w-xs border border-gray-700 rounded-md shadow-lg bg-gray-800"
+    >
       <CardHeader className="flex flex-col items-center p-4">
         <img
           src={image}

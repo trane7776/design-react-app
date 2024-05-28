@@ -14,6 +14,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import DesignEditor from './components/DesignEditor';
 import Account from './components/Account';
+import DesignDetail from './components/DesignDetail';
 function App() {
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -52,6 +53,7 @@ function App() {
               path="/account"
               element={<Account user={user} setUser={setUser} />}
             ></Route>
+            <Route path="/design/:id" element={<DesignDetail user={user} />} />
           </Routes>
         </main>
 
