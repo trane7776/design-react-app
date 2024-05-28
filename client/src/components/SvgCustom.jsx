@@ -155,14 +155,12 @@ const SvgEditor = () => {
 
   return (
     <div className="absolute left-full ml-3  p-3 w-[200px] h-[220px] rounded-md flex flex-col gap-4">
-      <button onClick={addRectangle}>Add Rectangle</button>
-      <button onClick={addLine}>Add Line</button>
-      <button onClick={addText}>Add Text</button>
-      <button onClick={handleClearCanvas}>Clear Canvas</button>
-      <button onClick={() => handleSaveCanvas('logo')}>Save as Logo</button>
-      <button onClick={() => handleSaveCanvas('texture')}>
-        Save as Texture
-      </button>
+      <button onClick={addRectangle}>Прямоугольник</button>
+      <button onClick={addLine}>Линия</button>
+      <button onClick={addText}>Текст</button>
+      <button onClick={handleClearCanvas}>Очистить</button>
+      <button onClick={() => handleSaveCanvas('logo')}>Лого</button>
+      <button onClick={() => handleSaveCanvas('texture')}>Текстура</button>
       <div className="absolute left-full ml-3 ">
         <canvas ref={canvasRef} id="canvas" width="200" height="200" />
       </div>

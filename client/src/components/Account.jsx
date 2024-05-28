@@ -64,7 +64,11 @@ const Account = ({ user, setUser }) => {
         {designs.length > 0 ? (
           designs.map((design) => (
             <div key={design._id} className="bg-gray-700 p-4 rounded mb-4">
-              <img src={design.image} alt={design.name} className="mb-4" />
+              <img
+                src={design.image}
+                alt={design.name}
+                className=" w-32 h-32 sm:w-64 sm:h-64 m-auto object-cover mb-4"
+              />
               <h4 className="text-lg text-white">{design.name}</h4>
               <button
                 onClick={() => deleteDesign(design._id)}

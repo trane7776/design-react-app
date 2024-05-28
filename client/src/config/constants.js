@@ -19,7 +19,7 @@ export const EditorTabs = [
   {
     name: 'svgeditor',
     icon: ai,
-    displayName: 'svg',
+    displayName: 'Конструктор',
   },
 ];
 

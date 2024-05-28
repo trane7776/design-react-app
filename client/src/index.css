@@ -1,6 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*,
+:before,
+:after {
+  box-sizing: border-box;
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -17,12 +23,10 @@
 }
 .design-card {
   transition: 0.3s ease;
-  cursor: pointer;
 }
 .design-card:hover {
   transform: scale(1.05);
 }
-
 .editor {
   @apply relative w-full h-[400px] sm:h-[500px] xl:h-[600px] overflow-hidden;
 }

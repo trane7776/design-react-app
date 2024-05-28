@@ -28,11 +28,11 @@ const DesignCard = ({ id, title, image, user }) => {
     });
   };
   return (
-    <Card
-      onClick={handleCardClick}
-      className="design-card w-full max-w-xs border border-gray-700 rounded-md shadow-lg bg-gray-800"
-    >
-      <CardHeader className="flex flex-col items-center p-4">
+    <Card className="design-card w-full max-w-xs border border-gray-700 rounded-md shadow-lg bg-gray-800">
+      <CardHeader
+        onClick={handleCardClick}
+        className="cursor-pointer flex flex-col items-center p-4"
+      >
         <img
           src={image}
           className="w-full h-48 object-cover rounded-md"

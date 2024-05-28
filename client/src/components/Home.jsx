@@ -52,7 +52,7 @@ const Home = () => {
           value={searchQuery}
           onChange={handleSearchChange}
         />
-        <div className="mt-12 ml-20 flex w-full flex-wrap justify-center gap-8 sm:justify-start">
+        <div className="design-container mt-12 flex w-full flex-wrap justify-center gap-8 ">
           {filteredDesigns.map((design) => (
             <DesignCard
               key={design._id}

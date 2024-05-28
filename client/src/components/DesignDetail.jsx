@@ -91,9 +91,13 @@ const DesignDetail = ({ user }) => {
   return (
     <div className="bg-gray-800 p-4 w-3/6 mx-auto pb-10">
       <h2 className="text-2xl font-bold mb-4 text-white">{design.name}</h2>
-      <img src={design.image} alt={design.name} className="mb-4" />
+      <img
+        src={design.image}
+        alt={design.name}
+        className="mb-4 w-52 h-52 sm:w-96 sm:h-96 object-cover m-auto"
+      />
       <p className="text-white">Пользователь: {design.user}</p>
-      <div className="flex gap-8 mt-7">
+      <div className="flex flex-col sm:flex-row gap-8 mt-7">
         <button onClick={handlePng}>Скачать в PNG</button>
         <button onClick={handleSvg}>Скачать в SVG</button>
       </div>
