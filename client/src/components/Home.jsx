@@ -52,16 +52,21 @@ const Home = () => {
           value={searchQuery}
           onChange={handleSearchChange}
         />
+
         <div className="design-container mt-12 flex w-full flex-wrap justify-center gap-8 ">
-          {filteredDesigns.map((design) => (
-            <DesignCard
-              key={design._id}
-              title={design.name}
-              image={design.image}
-              user={design.user}
-              id={design._id}
-            />
-          ))}
+          {filteredDesigns.length > 0 ? (
+            filteredDesigns.map((design) => (
+              <DesignCard
+                key={design._id}
+                title={design.name}
+                image={design.image}
+                user={design.user}
+                id={design._id}
+              />
+            ))
+          ) : (
+            <div>Loading...</div>
+          )}
         </div>
       </section>
     </div>
