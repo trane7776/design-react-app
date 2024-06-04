@@ -51,12 +51,13 @@ const Customizer = ({ user }) => {
     if (!prompt1) return alert('Please enter a prompt');
     try {
       setGeneratingImg(true);
+      const prompt = prompt1;
       const response = await fetch(
         'https://design-react-app.onrender.com/api/v1/dalle',
         {
           method: 'POST',
           body: JSON.stringify({
-            prompt1,
+            prompt,
           }),
           headers: {
             'Content-Type': 'application/json',
