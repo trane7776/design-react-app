@@ -23,8 +23,8 @@
 1. Клонируйте репозиторий:
 
    ```bash
-   git clone https://github.com/yourusername/t-shirt-design-app.git
-   cd t-shirt-design-app/client
+   git clone https://github.com/trane7776/design-react-app.git
+   cd design-react-app/client
    ```
 
 2. Установите зависимости:
@@ -57,7 +57,7 @@
 
    ```env
    MONGODB_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
+
    ```
 
 4. Запустите сервер:
@@ -355,4 +355,3 @@ export default Account;
 
 Этот проект лицензируется на условиях [MIT License](LICENSE).
 
-```
