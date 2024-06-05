@@ -20,7 +20,15 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
+#designs {
+  padding-top: 90px;
+
+  -webkit-background-clip: content-box;
+  background-clip: content-box;
+}
+
 .design-card {
   transition: 0.3s ease;
 }

@@ -28,21 +28,26 @@ const Home = () => {
     design.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
   return (
-    <div className="flex flex-col items-center bg-gray-900 min-h-screen pb-20">
-      <div className="text-center mt-16">
-        <h1 className="text-4xl font-bold text-white mb-4">Дизайн футболок</h1>
-        <p className="text-lg text-gray-400 mb-8">
+    <div className="flex flex-col items-center bg-gray-900 pb-20">
+      <div className="flex items-center  mt-10 flex-col text-center">
+        <h1 className="md:text-9xl font-bold text-white mb-4">
+          Дизайн футболок
+        </h1>
+        <p className="md:text-4xl mt-10 text-gray-400 mb-8">
           Создай свой уникальный дизайн
         </p>
         <a
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-500 md:text-2xl  hover:bg-blue-700 text-white font-bold py-5 px-10 md:py-12 md:px-24 rounded"
           href="/design"
         >
           Начать
         </a>
+        <a href="#designs" className="cursor-pointer m-10">
+          Перейти к дизайнам пользователей
+        </a>
       </div>
-      <section className="mt-6 w-full flex flex-col items-center sm:mt-20">
-        <h1 className="text-3xl font-bold text-white mb-8">
+      <section id="designs" className=" w-full flex flex-col items-center ">
+        <h1 className="text-center text-3xl font-bold text-white mb-8">
           Дизайны пользователей
         </h1>
         <input
