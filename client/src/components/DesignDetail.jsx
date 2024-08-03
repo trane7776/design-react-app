@@ -11,7 +11,7 @@ const DesignDetail = ({ user }) => {
     const fetchDesign = async () => {
       try {
         const response = await fetch(
-          `https://design-react-app-production.up.railway.app/design/${id}`
+          `https://continued-ariella-treeeea-faaad991.koyeb.app/design/${id}`
         );
         const data = await response.json();
         setDesign(data);
@@ -22,7 +22,7 @@ const DesignDetail = ({ user }) => {
     const fetchComments = async () => {
       try {
         const response = await fetch(
-          `https://design-react-app-production.up.railway.app/comments/${id}`
+          `https://continued-ariella-treeeea-faaad991.koyeb.app/comments/${id}`
         );
         const data = await response.json();
         setComments(data);
@@ -67,7 +67,7 @@ const DesignDetail = ({ user }) => {
     if (!commentText) return;
     try {
       const response = await fetch(
-        'https://design-react-app-production.up.railway.app/comments',
+        'https://continued-ariella-treeeea-faaad991.koyeb.app/comments',
         {
           method: 'POST',
           headers: {

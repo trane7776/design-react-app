@@ -7,7 +7,7 @@ const Home = () => {
     const fetchDesigns = async () => {
       try {
         const response = await fetch(
-          'https://design-react-app-production.up.railway.app/design'
+          'https://continued-ariella-treeeea-faaad991.koyeb.app/design'
         );
         const data = await response.json();
 

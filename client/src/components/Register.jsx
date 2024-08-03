@@ -12,7 +12,7 @@ const Register = ({ setUser }) => {
     if (confirmPassword === password) {
       try {
         const response = await fetch(
-          'https://design-react-app-production.up.railway.app/auth/register',
+          'https://continued-ariella-treeeea-faaad991.koyeb.app/auth/register',
           {
             method: 'POST',
             headers: {

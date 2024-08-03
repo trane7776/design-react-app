@@ -12,7 +12,7 @@ const Account = ({ user, setUser }) => {
   const fetchUserDesigns = async () => {
     try {
       const response = await fetch(
-        `https://design-react-app-production.up.railway.app/user-designs?user=${user.username}`
+        `https://continued-ariella-treeeea-faaad991.koyeb.app/user-designs?user=${user.username}`
       );
       const data = await response.json();
       setDesigns(data);
@@ -24,7 +24,7 @@ const Account = ({ user, setUser }) => {
   const deleteDesign = async (id) => {
     try {
       const response = await fetch(
-        `https://design-react-app-production.up.railway.app/design/${id}`,
+        `https://continued-ariella-treeeea-faaad991.koyeb.app/design/${id}`,
         {
           method: 'DELETE',
         }
